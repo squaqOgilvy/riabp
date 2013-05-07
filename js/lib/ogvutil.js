@@ -3,10 +3,13 @@
     Developers: Paulo Sanches    
 */
 (function(window) {
-    'use strict';
+	'use strict';
 
-    var ogvu = {};
+	var ogvu = {
+		// Use for display debug information on screen    	
+		debug: true
+	};
 
-    window.ogvu = ogvu;
+	window.ogvu = ogvu;
 
 }(window));
