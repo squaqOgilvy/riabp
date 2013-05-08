@@ -50,6 +50,25 @@
 					document.getElementById('ogvStage').removeChild('debug');
 				}
 			};
+		},
+		// Create and add clicktag element from params 
+		clicktag: function(url, width, height, left, top) {
+			if (!document.getElementById('clicktag')) {
+					var el = document.createElement('div');
+
+					el.setAttribute('id', 'clicktag');
+					el.style.position = 'absolute';
+					el.style.width = width !== undefined ? width + 'px' : (document.getElementById('ogvStage').clientWidth - 40) + 'px';
+					el.style.height = height !== undefined ? height + 'px' : (document.getElementById('ogvStage').clientHeight - 40) + 'px';
+					el.style.top = top !== undefined ? top + 'px' : 20 + 'px';
+					el.style.left = left !== undefined ? left + 'px' : 20 + 'px';
+					
+					document.getElementById('ogvStage').appendChild(el);
+
+					el.addEventListener('click', function(){
+						window.location = url;
+					},false)
+				}
 		}
 	};
 
