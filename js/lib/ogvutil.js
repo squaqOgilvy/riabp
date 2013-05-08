@@ -31,21 +31,22 @@
 				event.preventDefault();
 			}
 		},
-		log: function(text){
-			if(this.debug === true){
-				if(!document.getElementById('debug')) {
+		// Write debug log on HTML
+		log: function(text) {
+			if (this.debug === true) {
+				if (!document.getElementById('debug')) {
 					var el = document.createElement('div');
-					
-					el.setAttribute('id','debug');
+
+					el.setAttribute('id', 'debug');
 					el.style.position = 'absolute';
-					el.style.top = '0px'; 
+					el.style.top = '0px';
 
 					document.getElementById('ogvStage').appendChild(el);
 
 					el.innerHTML = text;
 				}
-			}else{
-				if(document.getElementById('debug')) {
+			} else {
+				if (document.getElementById('debug')) {
 					document.getElementById('ogvStage').removeChild('debug');
 				}
 			};
