@@ -13,14 +13,13 @@
 <body>
 	<div id="ogvStage"> 
 		<!-- ad content -->	
-		
 	</div>
 	<!-- Js -->
 	<script type="text/javascript" src="js/lib/modernizr.custom.27092.js"></script>
 	<script>
 	Modernizr.load([
 	{
-		load: ['js/ogvad.js','js/lib/ogvutil.js'], complete: function () {
+		load: ['js/ogvad.js','js/lib/ogvutil.js','js/lib/ogvselector.js'], complete: function () {
     		// initialize OgvApp
     		ogvAd.init();   		
     	}
