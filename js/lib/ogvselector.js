@@ -32,6 +32,7 @@
 			return elem;
 		},
 		methods: function() {
+			// Hide the element with delay 
 			this.hide = function(delay) {
 				if (delay === undefined) {
 					delay = 0;
@@ -39,6 +40,16 @@
 
 				setTimeout(function() {
 					this.style.display = 'none';
+				}.bind(this), delay * 1000);
+			};
+			// Show the element with delay 
+			this.show = function(delay) {
+				if (delay === undefined) {
+					delay = 0;
+				};
+
+				setTimeout(function() {
+					this.style.display = 'block';
 				}.bind(this), delay * 1000);
 			};
 		}
