@@ -1,7 +1,6 @@
 /*
 	Author: Ogilvy Brasil	
 	Developers: Paulo Sanches, Everton Melo
-	Version: 0.1
 */
 (function(window) {
 	'use strict';
@@ -31,6 +30,17 @@
 
 			ogvs.fn.methods.call(elem);
 			return elem;
+		},
+		methods: function() {
+			this.hide = function(delay) {
+				if (delay === undefined) {
+					delay = 0;
+				};
+
+				setTimeout(function() {
+					this.style.display = 'none';
+				}.bind(this), delay * 1000);
+			};
 		}
 	};
 
