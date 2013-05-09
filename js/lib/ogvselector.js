@@ -69,6 +69,16 @@
 					ogvs('#' + id).css(style);
 				};
 			};
+			// Remove dom element with delay
+			this.removeChild = function(id, delay) {
+				if (delay === undefined) {
+					delay = 0;
+				};
+
+				setTimeout(function() {
+					this.removeChild(ogvs(id));
+				}.bind(this), delay * 1000);
+			}
 		}
 	};
 
