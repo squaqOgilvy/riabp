@@ -52,6 +52,23 @@
 					this.style.display = 'block';
 				}.bind(this), delay * 1000);
 			};
+			// Create and add dom element with id and delay
+			this.addChild = function(id, style, delay) {
+				if (delay === undefined) {
+					delay = 0;
+				};
+
+				var elem = document.createElement('div');
+				this.appendChild(elem);
+
+				if (id !== undefined) {
+					elem.setAttribute('id', id);
+				};
+
+				if (style !== undefined) {
+					ogvs('#' + id).css(style);
+				};
+			};
 		}
 	};
 
