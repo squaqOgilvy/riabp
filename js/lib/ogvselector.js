@@ -79,6 +79,16 @@
 					this.removeChild(ogvs(id));
 				}.bind(this), delay * 1000);
 			}
+			// Addd eventlistener on Dom Element with delay
+			this.on = function(event, callback, delay) {
+				if (delay === undefined) {
+					delay = 0;
+				};
+
+				setTimeout(function() {
+					this.addEventListener(event, callback, false);
+				}.bind(this), delay * 1000);
+			};
 		}
 	};
 
