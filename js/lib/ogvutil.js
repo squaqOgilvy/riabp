@@ -82,7 +82,7 @@
 
 					document.getElementById('ogvStage').appendChild(el);
 
-					el.addEventListener('click', function(){
+					el.addEventListener(downEvent, function(){
 						window.location = url;
 					},false)
 				}
