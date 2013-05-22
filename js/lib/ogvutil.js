@@ -1,12 +1,29 @@
 /*
-    Author: Ogilvy Brasil   
-    Developers: Paulo Sanches    
+    Author: Ogilvy Brasil
+    Developers: Paulo Sanches
 */
 (function(window) {
 	'use strict';
 
+	/*
+	   --------------------------------
+	   Evetns Capability
+	   --------------------------------
+	*/
+
+	var _has_touch = ('ontouchstart' in window),
+		downEvent = _has_touch ? 'touchstart' : 'mousedown',
+		upEvent = _has_touch ? 'touchend' : 'mouseup',
+		moveEvent = _has_touch ? 'touchmove' : 'mousemove';
+
+	/*
+	   --------------------------------
+	   Object ogvu
+	   --------------------------------
+	*/
+
 	var ogvu = {
-		// Use for display debug information on screen    	
+		// Use for display debug information on screen
 		debug: true,
 		// Create a new setTimeout with callback function and duration time params
 		timer: function(callback, duration) {
@@ -16,15 +33,15 @@
 		touch: {
 			// Clear Touch events default action
 			lock: function() {
-				document.addEventListener('touchstart', this.preventDefault, false);
-				document.addEventListener('touchmove', this.preventDefault, false);
-				document.addEventListener('touchend', this.preventDefault, false);
+				document.addEventListener(downEvent, this.preventDefault, false);
+				document.addEventListener(moveEvent, this.preventDefault, false);
+				document.addEventListener(upEvent, this.preventDefault, false);
 			},
 			// Restore Touch events to default action
 			unlock: function() {
-				document.removeEventListener('touchstart', this.preventDefault, false);
-				document.removeEventListener('touchmove', this.preventDefault, false);
-				document.removeEventListener('touchend', this.preventDefault, false);
+				document.removeEventListener(downEvent, this.preventDefault, false);
+				document.removeEventListener(moveEvent, this.preventDefault, false);
+				document.removeEventListener(upEvent, this.preventDefault, false);
 			},
 			// Prevent default action event
 			preventDefault: function(event) {
@@ -51,7 +68,7 @@
 				}
 			};
 		},
-		// Create and add clicktag element from params 
+		// Create and add clicktag element from params
 		clicktag: function(url, width, height, left, top) {
 			if (!document.getElementById('clicktag')) {
 					var el = document.createElement('div');
@@ -62,7 +79,7 @@
 					el.style.height = height !== undefined ? height + 'px' : (document.getElementById('ogvStage').clientHeight - 40) + 'px';
 					el.style.top = top !== undefined ? top + 'px' : 20 + 'px';
 					el.style.left = left !== undefined ? left + 'px' : 20 + 'px';
-					
+
 					document.getElementById('ogvStage').appendChild(el);
 
 					el.addEventListener('click', function(){
@@ -75,3 +92,4 @@
 	window.ogvu = ogvu;
 
 }(window));
+
