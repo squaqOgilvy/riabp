@@ -99,6 +99,35 @@
 					this.removeEventListener(event, callback, false);
 				}.bind(this), delay * 1000);
 			}
+
+			//return string style value 
+			this.cssValue = function(property)
+			{
+				return window.getComputedStyle(this, null).getPropertyCSSValue(property).cssText
+			};
+
+			//return div width
+			this.getWidth = function(){return parseInt(this.cssValue('width'));};
+			//return div height
+			this.getHeight = function(){return parseInt(this.cssValue('height'));};
+			//return div margin-left
+			this.left = function(){return parseInt(this.cssValue('margin-left'));};
+			//return div margin-right
+			this.right = function(){return parseInt(this.cssValue('margin-right'));}
+			
+			//set div transformations with cross-browser
+			//@params x, y, rotate = 0, scale = 1
+			this.transform = function(x, y, rotate, scale)
+			{
+               if(!rotate) rotate = 0; if(!scale) scale = 1;
+               this.style.webkitTransform = "translate("+x+"px, "+y+"px) rotate("+rotate+"deg) scale("+scale+")";
+               this.style.MozTransform = "translate("+x+"px, "+y+"px) rotate("+rotate+"deg) scale("+scale+")";
+               this.style.msTransform = "translate("+x+"px, "+y+"px) rotate("+rotate+"deg) scale("+scale+")";
+               this.style.OTransform = "translate("+x+"px, "+y+"px) rotate("+rotate+"deg) scale("+scale+")";
+               this.style.transform = "translate("+x+"px, "+y+"px) rotate("+rotate+"deg) scale("+scale+")";
+            }
+            
+           
 		}
 	};
 
