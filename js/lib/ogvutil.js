@@ -16,12 +16,20 @@
 		upEvent = _has_touch ? 'touchend' : 'mouseup',
 		moveEvent = _has_touch ? 'touchmove' : 'mousemove';
 
+    /*
+       requestAnimationFrame cross-browser 
+    */
+    window.requestAnimationFrame = (function(){return  window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame || function( callback ){setTimeout(callback, 1000 / 60);};})();	
+
 	/*
 	   --------------------------------
 	   Object ogvu
 	   --------------------------------
 	*/
-
+    
+    
+        
 	var ogvu = {
 		// Use for display debug information on screen
 		debug: true,
@@ -51,7 +59,8 @@
 		// Write debug log on HTML
 		log: function(text) {
 			if (this.debug === true) {
-				if (!document.getElementById('debug')) {
+				if (!document.getElementById('debug')) 
+				{
 					var el = document.createElement('div');
 
 					el.setAttribute('id', 'debug');
@@ -59,9 +68,12 @@
 					el.style.top = '0px';
 
 					document.getElementById('ogvStage').appendChild(el);
-
+                   
 					el.innerHTML = text;
+					
 				}
+				else document.getElementById('debug').innerHTML = text;
+                
 			} else {
 				if (document.getElementById('debug')) {
 					document.getElementById('ogvStage').removeChild('debug');
