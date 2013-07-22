@@ -8,29 +8,71 @@
 	var ogvs = function(context) {
 		return new ogvs.fn.init(context);
 	};
-
-	ogvs.fn = ogvs.prototype = {
-		init: function(context) {
-			var elem = 0,
-				selector = context.charAt(0);
-
-			switch (selector) {
+    
+    
+    function selector(sl)
+    {
+        var elem,
+        _selector = sl.charAt(0);
+			switch (_selector) {
 				case '#':
-					elem = document.getElementById(context.split('#')[1]);
+					elem = document.getElementById(sl.split('#')[1]);
 					break;
 				case '.':
-					elem = document.getElementsByClassName(context.split('.')[1])[0];
+					elem = document.getElementsByClassName(sl.split('.')[1])[0];
 					break;
 				default:
-					elem = document.getElementsByTagName(context)[0];
+					elem = document.getElementsByTagName(sl)[0];
 					break;
 			};
+        
+        return elem;
+    }
+    
+	ogvs.fn = ogvs.prototype = {
+		
+		init: function(context) {
+			var _c = [],
+			elem,
+			strAux = '';
 
-			if (elem === null) return;
+			for(var i=0; i < context.length; i++)
+            {
+                if(context.charAt(i) != ' ' ) strAux+= context.charAt(i);
+                
+                if(context.charAt(i) == ' ' || i == context.length-1) 
+                {
+                    _c.push(strAux);
+                    strAux = '';
+                }
+            }
+			
+            if(_c.length>1)
+            {
+                for(var j=_c.length-1; j >=0 ; j--)
+                {
+                    if(_c[j-1])
+                    {
+                        if(!(selector(_c[j]).parentNode == selector(_c[j-1]))) 
+                        {
+                            console.log("div invalida")
+                            return 0;
+                        }
+                    }
+                }
+            }
+            
+            context = (_c.length > 1)? _c[_c.length-1] : _c[0];
+            elem = selector(context);
 
-			ogvs.fn.methods.call(elem);
-			return elem;
+			if (!elem){console.log('div nula'); return;}
+			
+            ogvs.fn.methods.call(elem);
+            return elem;
+            
 		},
+		
+		
 		methods: function() {
 			// Hide the element with delay 
 			this.hide = function(delay) {
