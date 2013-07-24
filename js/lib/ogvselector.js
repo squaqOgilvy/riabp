@@ -12,21 +12,7 @@
 
     function selector(sl)
     {
-        var elem,
-        _selector = sl.charAt(0);
-			switch (_selector) {
-				case '#':
-					elem = document.getElementById(sl.split('#')[1]);
-					break;
-				case '.':
-					elem = document.getElementsByClassName(sl.split('.')[1])[0];
-					break;
-				default:
-					elem = document.getElementsByTagName(sl)[0];
-					break;
-			};
-
-        return elem;
+        return document.querySelector(sl);
     }
 
 	ogvs.fn = ogvs.prototype = {
@@ -36,37 +22,40 @@
 			elem,
 			strAux = '';
 
-			for(var i=0; i < context.length; i++)
+			if(context.indexOf(' ') == -1) elem = document.querySelector(context);
+            else
             {
-                if(context.charAt(i) != ' ' ) strAux+= context.charAt(i);
-
-                if(context.charAt(i) == ' ' || i == context.length-1)
+                for(var i=0; i < context.length; i++)
                 {
-                    _c.push(strAux);
-                    strAux = '';
-                }
-            }
-
-            if(_c.length>1)
-            {
-                for(var j=_c.length-1; j >=0 ; j--)
-                {
-                    if(_c[j-1])
+                    if(context.charAt(i) != ' ' ) strAux+= context.charAt(i);
+                    
+                    if(context.charAt(i) == ' ' || i == context.length-1) 
                     {
-                        if(!(selector(_c[j]).parentNode == selector(_c[j-1])))
+                        _c.push(strAux);
+                        strAux = '';
+                    }
+                }
+                
+                if(_c.length>1)
+                {
+                    for(var j=_c.length-1; j >=0 ; j--)
+                    {
+                        if(_c[j-1])
                         {
-                            console.log("div invalida")
-                            return 0;
+                            if(!(selector(_c[j]).parentNode == selector(_c[j-1]))) 
+                            {
+                                console.log("div invalida")
+                                return 0;
+                            }
                         }
                     }
                 }
+                context = _c[_c.length-1];
+                elem = selector(context);
             }
 
-            context = (_c.length > 1)? _c[_c.length-1] : _c[0];
-            elem = selector(context);
-
 			if (!elem){console.log('div nula'); return;}
-
+			
             ogvs.fn.methods.call(elem);
             return elem;
 
